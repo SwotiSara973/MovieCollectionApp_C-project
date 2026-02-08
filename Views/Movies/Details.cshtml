@@ -1,4 +1,5 @@
-﻿@model Movie_Collection_App.Models.Movie
+﻿@* This tells the page to show information for one specific movie *@
+@model Movie_Collection_App.Models.Movie
 
 @{
     ViewData["Title"] = "Details";
@@ -9,40 +10,48 @@
 <div>
     <h4>Movie</h4>
     <hr />
+    @* This 'dl' list is like a dictionary that shows the label and then the info *@
     <dl class="row">
-        <dt class = "col-sm-2">
+        @* 'dt' is the label (like "Title") and 'dd' is the actual data (like "Inception") *@
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Genre)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ReleaseYear)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ReleaseYear)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Director)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Director)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Rating)
         </dd>
     </dl>
 </div>
 <div>
+    @* This link lets us go to the Edit page for this specific movie if we see a mistake *@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    @* This takes us back to the main list of all movies *@
     <a asp-action="Index">Back to List</a>
 </div>

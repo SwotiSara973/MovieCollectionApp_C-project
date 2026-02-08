@@ -1,4 +1,5 @@
-﻿@model Movie_Collection_App.Models.Movie
+﻿@* This tells the page we are working with one single Movie to edit *@
+@model Movie_Collection_App.Models.Movie
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,34 +11,46 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        @* This form sends the new information back to the Edit method in the Controller *@
         <form asp-action="Edit">
+            @* This shows a summary of errors if the user types something wrong *@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* This hidden input keeps the Movie's ID safe so the computer knows which movie to update *@
             <input type="hidden" asp-for="Id" />
+
+            @* Each 'form-group' below is a box for the user to type in new info *@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
                 <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="ReleaseYear" class="control-label"></label>
                 <input asp-for="ReleaseYear" class="form-control" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Director" class="control-label"></label>
                 <input asp-for="Director" class="form-control" />
                 <span asp-validation-for="Director" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Rating" class="control-label"></label>
                 <input asp-for="Rating" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
+
+            @* This button saves all the changes we made *@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -46,9 +59,13 @@
 </div>
 
 <div>
+    @* This link takes us back to the main list if we change our mind *@
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @* This part makes sure the form checks for mistakes (like empty boxes) instantly *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

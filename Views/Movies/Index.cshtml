@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Movie_Collection_App.Models.Movie>
+﻿@* This tells the page to expect a list of Movies from our Model *@
+@model IEnumerable<Movie_Collection_App.Models.Movie>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,11 +8,13 @@
 <h1>Index</h1>
 
 <p>
+    @* This link takes the user to the 'Create' page to add a new movie *@
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            @* These headers are the labels for each column in our table *@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -31,29 +34,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Director)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @* This 'foreach' loop repeats for every single movie we have in our database *@
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* These lines display the actual information for each movie *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Director)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @* These buttons allow us to Edit, view Details, or Delete a movie using its unique ID *@
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

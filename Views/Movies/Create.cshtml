@@ -1,4 +1,5 @@
-﻿@model Movie_Collection_App.Models.Movie
+﻿@* This tells the page we are creating a new Movie object *@
+@model Movie_Collection_App.Models.Movie
 
 @{
     ViewData["Title"] = "Create";
@@ -10,33 +11,44 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        @* This form sends all the info we type to the 'Create' method in the Controller *@
         <form asp-action="Create">
+            @* This checks if we missed any required boxes and shows an error message *@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Each 'form-group' is a label and a box for us to type in movie details *@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
+                @* This span shows a red error message if the Title is empty *@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
                 <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="ReleaseYear" class="control-label"></label>
                 <input asp-for="ReleaseYear" class="form-control" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Director" class="control-label"></label>
                 <input asp-for="Director" class="form-control" />
                 <span asp-validation-for="Director" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Rating" class="control-label"></label>
                 <input asp-for="Rating" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
+
+            @* This button sends the form data to be saved in the database *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -45,9 +57,13 @@
 </div>
 
 <div>
+    @* This link lets us go back to the list without saving anything *@
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @* This script makes the error messages pop up instantly without reloading the page *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
