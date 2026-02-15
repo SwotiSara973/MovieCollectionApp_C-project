@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System.ComponentModel.DataAnnotations;
+=======
+using System.ComponentModel.DataAnnotations;
+>>>>>>> 1e36c2d991df0589f305fd9dd6535b60414cd984
 
 namespace Movie_Collection_App.DataTransferObjects_DTOs_
 {
