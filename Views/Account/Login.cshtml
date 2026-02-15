@@ -1,0 +1,28 @@
+﻿<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 shadow p-4 rounded bg-white">
+            @* Red Error Box: Matches your requirement *@
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger py-2 mb-3">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <h3 class="fw-bold mb-3">Sign In</h3>
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Username</label>
+                    <input name="Username" class="form-control" placeholder="Enter username" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input name="Password" type="password" class="form-control" placeholder="Enter password" required />
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Movie_Collection_App.Models.Movie>
+
+<div class="container mt-4">
+    @* ... (Your stat cards here) ... *@
+
+    <div class="card p-4 shadow-sm border-0">
+        <div class="d-flex gap-3">
+            @* DYNAMIC MENU: Only shows if authorized *@
+            @if (ViewBag.CanAddMovie)
+            {
+                <a asp-controller="Movies" asp-action="Create" class="btn btn-success btn-lg">
+                    Add Movie (Admin Setting Enabled)
+                </a>
+            }
+
+            <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-dark btn-lg">
+                View Collection
+            </a>
+        </div>
+    </div>
+</div>
+
+@* SUCCESS POP-UP *@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (TempData["LoginSuccess"] != null)
+{
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: '@TempData["LoginSuccess"]',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+}

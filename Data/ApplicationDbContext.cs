@@ -1,22 +1,25 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
-using Movie_Collection_App.Models; // This helps the bridge find our Movie class
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Movie_Collection_App.Data
 {
-    // This class is the "Bridge" between my code and the SQL database.
-    // It inherits from DbContext, which is a tool from Entity Framework.
     public class ApplicationDbContext : DbContext
     {
-        // This constructor is like a setup instruction for the bridge.
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        // This line tells the computer to create a table called "Movies" 
-        // based on our Movie model.
-        public DbSet<Movie> Movies { get; set; }
+        // 1. Movie is in the Models folder
+        public DbSet<Movie_Collection_App.Models.Movie> Movies { get; set; }
+
+        // 2. Security Tables are in the DTOs folder
+        // This tells the computer exactly where to find the classes to stop the red lines
+        public DbSet<Movie_Collection_App.DataTransferObjects_DTOs_.User> Users { get; set; }
+        public DbSet<Movie_Collection_App.DataTransferObjects_DTOs_.Role> Roles { get; set; }
+        public DbSet<Movie_Collection_App.DataTransferObjects_DTOs_.UserRole> UserRoles { get; set; }
+
+        // 3. Navigation Tables are also in the DTOs folder
+        public DbSet<Movie_Collection_App.DataTransferObjects_DTOs_.Menu> Menus { get; set; }
+        public DbSet<Movie_Collection_App.DataTransferObjects_DTOs_.UserMenu> UserMenus { get; set; }
     }
 }
