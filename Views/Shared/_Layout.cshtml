@@ -1,59 +1,17 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MovieApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom shadow-sm mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold text-primary" asp-controller="Home" asp-action="Index">🎬 MovieApp</a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-                    </ul>
-
-                    @* ACCOUNT DROPDOWN LOGIC *@
-                    <ul class="navbar-nav">
-                        @using Microsoft.AspNetCore.Http
-                        @inject IHttpContextAccessor HttpContextAccessor
-                        @{
-                            var user = HttpContextAccessor.HttpContext.Session.GetString("UserName");
-                        }
-
-                        @if (user != null)
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="accMenu" role="button" data-bs-toggle="dropdown">
-                                    <i class="bi bi-person-circle"></i> Hello, @user
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                    <li><a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item"><a class="btn btn-primary px-4" asp-controller="Account" asp-action="Login">Login</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">@RenderBody()</main>
-    </div>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
-</html>
+﻿<ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    @if (Context.Session.GetString("UserName") != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+        </li>
+        @if (Context.Session.GetString("Role") == "Admin")
+        {
+            <li class="nav-item">
+                <a class="nav-link text-success" asp-controller="Movies" asp-action="Create">+ Add Movie</a>
+            </li>
+        }
+    }
+</ul>
