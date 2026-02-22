@@ -1,17 +1,98 @@
-﻿<ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    @if (Context.Session.GetString("UserName") != null)
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-        </li>
-        @if (Context.Session.GetString("Role") == "Admin")
-        {
-            <li class="nav-item">
-                <a class="nav-link text-success" asp-controller="Movies" asp-action="Create">+ Add Movie</a>
-            </li>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MovieApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .nav-login-btn {
+            background-color: #007bff;
+            color: white !important;
+            border-radius: 5px;
+            padding: 8px 24px;
+            font-weight: 500;
+            text-decoration: none;
         }
-    }
-</ul>
+
+        .nav-logout-btn {
+            color: #dc3545 !important; /* Red color for logout */
+            font-weight: 500;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .navbar-brand strong {
+            color: #007bff;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom py-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <img src="~/favicon.ico" width="30" height="30" class="d-inline-block align-top me-2" alt="Logo">
+                    <strong>MovieApp</strong>
+                </a>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        </li>
+                        @if (Context.Session.GetString("Role") == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-success" asp-controller="Movies" asp-action="Create">+ Add Movie</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav align-items-center">
+                        @if (Context.Session.GetString("UserName") == null)
+                        {
+                            @* Show Login if not signed in *@
+                            <li class="nav-item">
+                                <a class="nav-link nav-login-btn" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            @* Show Username and Logout if signed in *@
+                            <li class="nav-item">
+                                <span class="text-dark me-2">Hi, @Context.Session.GetString("UserName")</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-logout-btn" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted text-center py-3">
+        <div class="container">
+            &copy; 2026 - Movie Collection App
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
