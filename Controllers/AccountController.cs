@@ -12,9 +12,14 @@ namespace Movie_Collection_App.Controllers
         public IActionResult Login(string Username, string Password)
         {
             // Authentication Step
+            // We check for 'admin' to grant special access
             if (Username == "admin" && Password == "password123")
             {
                 HttpContext.Session.SetString("UserName", Username);
+
+                // CRITICAL ADDITION: This allows the '+ Add Movie' button to show up
+                HttpContext.Session.SetString("Role", "Admin");
+
                 TempData["LoginSuccess"] = "Successfully Authenticated!";
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -24,6 +29,7 @@ namespace Movie_Collection_App.Controllers
             return View();
         }
 
+        // This method clears the session and logs the user out
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
