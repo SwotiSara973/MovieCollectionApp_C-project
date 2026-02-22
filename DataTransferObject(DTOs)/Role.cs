@@ -1,5 +1,6 @@
 namespace Movie_Collection_App.DataTransferObjects_DTOs_
 {
+    // This is the Role class. It defines user permissions.
     public class Role
     {
         public int Id { get; set; }
